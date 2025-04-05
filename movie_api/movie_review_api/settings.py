@@ -124,3 +124,10 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+from dotenv import load_dotenv
+import os
+load_dotenv()
+
+TMDB_API_KEY = os.getenv('TMDB_API_KEY')
+TMDB_BASE_URL = os.getenv('TMDB_BASE_URL')

@@ -15,13 +15,21 @@ class ReviewSerializer(serializers.ModelSerializer):
         )
         class Meta:
             model = models.Review
-            fields = ['user', 'movie', 'rating', 'comment', 'created_at']
-            read_only_fields = ['user', 'created_at']
+            fields = ['id','user', 'movie', 'movie_id', 'rating', 'comment', 'created_at']
+            read_only_fields = ['user', 'created_at', 'movie']
 
         def validate_rating(self, value):
             if value < 1 or value > 5:
                  raise serializers.ValidationError("Rating must be between 1 and 5.")       
             return value
+        
+        def validate(self, data):
+            if models.Review.objects.filter(
+                user=self.context['request'].user,
+                movie=data.get('movie')
+            ).exists():
+                raise serializers.ValidationError("You've already reviewed this movie.")
+            return data
         
         def create(self, validated_data):
             validated_data['user'] = self.context['request'].user
