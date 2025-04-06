@@ -1,31 +1,72 @@
+```markdown
 # Movie Review API
 
-A RESTful API for managing movies and reviews. Users can register, log in, view movies, and write reviews for movies.
+A Django REST Framework API for managing movies and user reviews.
 
----
+## Features
 
-## **Features**
-- **User Authentication**: Register and log in to write reviews.
-- **Movies**:
-  - List all movies.
-  - Retrieve details of a specific movie.
-- **Reviews**:
-  - Write a review for a movie.
-  - Update or delete your reviews.
-- **Search**: Search movies by title or genre.
+- User authentication (JWT tokens)
+- Create, read, update, and delete movies
+- Post and manage movie reviews
+- Search functionality for movies
 
----
+## Installation
 
-## **Technologies Used**
-- **Backend**: Django, Django REST Framework (DRF)
-- **Authentication**: JWT (JSON Web Tokens)
-- **Database**: SQLite (default), can be configured to use PostgreSQL, MySQL, etc.
-- **Deployment**: Heroku (or any other platform)
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/nattytefera/movie_review_api.git
+   cd movie_review_api
+   ```
 
----
+2. Set up a virtual environment:
+   ```bash
+   python -m venv venv
+   source venv/bin/activate  # On Windows: venv\Scripts\activate
+   ```
 
-## **Getting Started**
+3. Install dependencies:
+   ```bash
+   pip install -r requirements.txt
+   ```
 
-### **Prerequisites**
-- Python 3.8 or higher
-- pip (Python package manager)
+4. Run migrations:
+   ```bash
+   python manage.py migrate
+   ```
+
+5. Create a superuser:
+   ```bash
+   python manage.py createsuperuser
+   ```
+
+6. Run the development server:
+   ```bash
+   python manage.py runserver
+   ```
+
+## API Endpoints
+
+### Authentication
+- `POST /api/token/` - Get JWT tokens
+- `POST /api/token/refresh/` - Refresh access token
+
+### Movies
+- `GET /api/movies/` - List all movies
+- `POST /api/movies/` - Create a new movie
+- `GET /api/movies/{id}/` - Get movie details
+- `PUT /api/movies/{id}/` - Update a movie
+- `DELETE /api/movies/{id}/` - Delete a movie
+
+### Reviews
+- `GET /api/reviews/` - List all reviews (user's only)
+- `POST /api/reviews/` - Create a new review
+- `GET /api/reviews/{id}/` - Get review details
+- `PUT /api/reviews/{id}/` - Update a review
+- `DELETE /api/reviews/{id}/` - Delete a review
+
+
+
+## TMDB Integration
+
+This project uses TMDB API **only for searching movies**.  
+No TMDB data is stored in the database - users must manually create movies locally before reviewing.
