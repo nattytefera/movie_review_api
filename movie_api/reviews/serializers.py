@@ -1,5 +1,16 @@
 from rest_framework import serializers
 from . import models
+# from django.contrib.auth.models import User
+
+# class UserSerializer(serializers.ModelSerializer):
+#     class Meta:
+#         model = User
+#         fields = ['username', 'password']
+#         extra_kwargs = {'password': {'write_only': True}}
+
+#     def create(self, validated_data):
+#         user = User.objects.create_user(**validated_data)
+#         return user
 
 class MovieSerializer(serializers.ModelSerializer):
     class Meta:
@@ -11,7 +22,9 @@ class ReviewSerializer(serializers.ModelSerializer):
         movie_id = serializers.PrimaryKeyRelatedField(
             queryset=models.Movie.objects.all(),
             source='movie',
-            write_only=True
+            write_only=False,
+            allow_null=False,
+            style={'base_template': 'input.html'}
         )
         class Meta:
             model = models.Review

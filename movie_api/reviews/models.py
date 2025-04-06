@@ -15,7 +15,7 @@ class Movie(models.Model):
 class Review(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="reviews")
     movie = models.ForeignKey(Movie, on_delete=models.CASCADE, related_name="reviews")
-    tmdb_id = models.IntegerField()
+    # tmdb_id = models.IntegerField()
     rating = models.PositiveSmallIntegerField()
     comment = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
